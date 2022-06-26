@@ -17,7 +17,14 @@ int main(){
     // Se imprimira "Operacion valida" si add_ok devuelve 1
     int x = 0x80000000;
     int y = 0x7fffffff;
-    if(add_ok(x,y)) printf("Operacion valida\n");
+    if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
+    x = 0xffffffff;
+    if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
+    y = 0x00000001;
+    if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
+    x = 0x80000000;
+    if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
+
 }
 
 /**

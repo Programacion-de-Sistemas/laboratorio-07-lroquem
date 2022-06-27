@@ -18,14 +18,13 @@ int main(){
     int x = 0x80000000;
     int y = 0x7fffffff;
     if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
-    x = 0xffffffff;
+    else printf("Operacion no valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
+    x = 0xBABA7714;
+    y = 0xB2E21427; // Invalido
     if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
-    y = 0x00000001;
-    if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
-    x = 0x80000000;
-    if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
-    x = 0x60000000;
-    y = 0x20000000;
+    else printf("Operacion no valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
+    x = 0x5D14A5D4;
+    y = 0X315EA515;  // Invalido
     if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
     else printf("Operacion no valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
 
@@ -38,9 +37,28 @@ int main(){
  * a y b < 0
  */
 int add_ok(int x, int y){
+    int i = 0;
+    int carry = 0;
+    int mascara = 1;
+    int xiy = x & y;
+    int xoy = x | y;
+
     // Verificando si ambos son positivos o negativos
-    if(!((x ^ y) &  0x80000000))
-        printf("Ambos valores positivos o negativos\n");
+    if(!((x ^ y) &  0x80000000)){
+        // Verificar bit a bit
+        do{
+            if (xiy & mascara) carry++;
+            else if (carry){
+                if(xoy & mascara)
+                    carry++;
+                else carry = 0;
+            } else carry = 0;
+            mascara<<=1;
+            i++; 
+        } while (i < 31);
+        if(x >= 0 && carry) return 0;
+        if(x < 0 && !carry) return 0;
+    }
     
     return 1;
 }

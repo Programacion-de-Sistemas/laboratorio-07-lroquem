@@ -15,6 +15,7 @@ int main(){
     x = 684250;
     y = 28457795;
     if (bool_or(x,y) == (x | y)) printf("APROBADO\n");
+    if (bool_xor(x,y) == (x ^ y)) printf("APROBADO\n");
 
 }
 
@@ -28,4 +29,8 @@ int bic(int x, int y){
 
 int bool_or(int x, int y){
     return bis(x,y);
+}
+
+int bool_xor(int x, int y){
+    return bis(bic(x,y),bic(y,x));
 }

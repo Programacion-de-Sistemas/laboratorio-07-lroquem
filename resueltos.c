@@ -24,6 +24,10 @@ int main(){
     if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
     x = 0x80000000;
     if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
+    x = 0x60000000;
+    y = 0x20000000;
+    if(add_ok(x,y)) printf("Operacion valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
+    else printf("Operacion no valida\n%d\t+\t%d\t=%d\n",x,y,x+y);
 
 }
 
@@ -34,18 +38,11 @@ int main(){
  * a y b < 0
  */
 int add_ok(int x, int y){
-    if(x<=0){
-        if (y>=0){
-            return 1;
-        }
-    } else if(y<=0){
-        if (x>=0){
-            return 1;
-        }
-    }
-
-    return 0;
+    // Verificando si ambos son positivos o negativos
+    if(!((x ^ y) &  0x80000000))
+        printf("Ambos valores positivos o negativos\n");
     
+    return 1;
 }
 /*
  * sum_elements devuelve la suma de los elementos del array a.
